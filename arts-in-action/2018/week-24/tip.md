@@ -13,7 +13,7 @@ upstream
 git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
 ```
 
-3. 合并上游的 repository：
+3. 拉取上游的 repository：
 ```
 git fetch upstream
 ```
