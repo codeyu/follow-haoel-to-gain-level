@@ -22,7 +22,7 @@ git fetch upstream
 ```
 git checkout master
 ```
-5. 把从上游 `upstream/master` 分支的修改合并到你当地的 `master` 分支：
+5. 把从上游 `upstream/master` 分支的修改合并到你本地的 `master` 分支：
 ```
 git merge upstream/master
 ```
