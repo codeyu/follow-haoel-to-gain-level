@@ -24,7 +24,7 @@
 | isPrivate	| 7/17/2014 |
 | hasTeams	| 2/23/2016 |
 
-正如你所料，随着产品的演化，数据的 schema 可能会不同，有的 documents 中会有 `isPrivate` 和 `hasTeams` 字段，有的却没有。那么，所有需要使用 `repo.hasTeams` 字段的的地方都会充斥下面这样的代码：
+正如你所料，随着产品的演化，数据的 schema 可能会不同，有的 documents 中会有 `isPrivate` 和 `hasTeams` 字段，有的却没有。那么，所有需要使用 `repo.hasTeams` 字段的的地方都会充斥下面这样的代码：
 ```
 if exists(repo.hasTeams) and repo.hasTeams === true
 {
@@ -50,4 +50,4 @@ if exists(repo.hasTeams) and repo.hasTeams === true
 
 作者对迁移很满意，现在过着幸福的生活。。
 
-读者注： PostgreSql 确实牛，对 sql 标准支持完善，可集成各种插件，用户函数等。MongoDB 没在工作中使用过，但是这种 NoSQL 类型的数据库也有适用的场景。
+读者注： PostgreSql 确实牛，对 sql 标准支持完善，可集成各种插件，用户函数等。MongoDB 这种 NoSQL 类型的数据库也有适用的场景。
