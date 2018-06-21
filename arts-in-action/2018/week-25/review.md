@@ -3,7 +3,7 @@
 ### 阅读报告
 
 作者首先说自己以前是全栈JS的粉丝（all-in on JS），并且数据库使用的是 MongoDB，一种 schema-less JSON database。  
-接着作者说在另一篇文章中反思：全栈是否真的好？有时候是。：）  
+作者提到另一篇文章中的反思：全栈是否真的好？有时候是：）  
 
 #### 一些小问题
 * 作者家的数据库采用的是主备结构。随着数据量的增大，MongoDB 开始出现一些问题：检索每个文档（document）超过一秒。  
@@ -15,7 +15,7 @@
 #### 压垮作者的稻草
 灵活的模式（schema）既是 MongoDB 的优点，也是缺点。就是说，文档（documents）在同一个集合（collection，可认为是关系型数据库的表）里不需要具有相同的字段或结构，collection 的 documents 中的公共字段的数据类型也可以不一样。总之，MongoDB 没有严格的模式规则。很多开发人员喜欢这种灵活性，但对开发人员的要求和责任也更高。
 作者举了个例子：  
-假如要在 MongoDB 里存储 git repository 的信息，模式很简单：
+假如要在 MongoDB 里存储 git repository 的信息，模式很简单：  
 |     Field name     | added on    | 
 | ------------------ | -------- | 
 | provider	| 12/1/2012 |
@@ -50,4 +50,6 @@ if exists(repo.hasTeams) and repo.hasTeams === true
 
 作者对迁移很满意，现在过着幸福的生活。。
 
-读者注： PostgreSql 确实牛，对 sql 标准支持完善，可集成各种插件，用户函数等。MongoDB 这种 NoSQL 类型的数据库也有适用的场景。
+评论也很精彩，有兴趣的朋友自行前往。
+
+读者注： PostgreSql 确实牛，对 sql 标准支持完善，可集成各种插件，用户函数等，而且支持 JSON数据类型。MongoDB 这种 NoSQL 类型的数据库也有适用的场景。
