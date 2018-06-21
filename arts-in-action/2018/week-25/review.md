@@ -15,14 +15,16 @@
 #### 压垮作者的稻草
 灵活的模式（schema）既是 MongoDB 的优点，也是缺点。就是说，文档（documents）在同一个集合（collection，可认为是关系型数据库的表）里不需要具有相同的字段或结构，collection 的 documents 中的公共字段的数据类型也可以不一样。总之，MongoDB 没有严格的模式规则。很多开发人员喜欢这种灵活性，但对开发人员的要求和责任也更高。
 作者举了个例子：  
-假如要在 MongoDB 里存储 git repository 的信息，模式很简单：  
-|     Field name     | added on    | 
+假如要在 MongoDB 里存储 git repository 的信息，模式很简单：
+
+|     Field name     | added on | 
 | ------------------ | -------- | 
 | provider	| 12/1/2012 |
-| repoOrg	| 12/1/2012 |
+| repoOrg	  | 12/1/2012 |
 | repoName	| 12/1/2012 |
 | isPrivate	| 7/17/2014 |
 | hasTeams	| 2/23/2016 |
+
 
 正如你所料，随着产品的演化，数据的 schema 可能会不同，有的 documents 中会有 `isPrivate` 和 `hasTeams` 字段，有的却没有。那么，所有需要使用 `repo.hasTeams` 字段的的地方都会充斥下面这样的代码：
 ```
