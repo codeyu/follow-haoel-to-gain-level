@@ -5,7 +5,7 @@
 * T: Tip, 学习一个技术技巧
 * S: Share, 分享一个技术观点和思考
 
->>> Let me do some clarification for the purpose of ARTS: A means learn the Algorithm, R means learn the English, T means learn the techniques, S means learn how to influence people. by @haoel
+> Let me do some clarification for the purpose of ARTS: A means learn the Algorithm, R means learn the English, T means learn the techniques, S means learn how to influence people. by @haoel
 ```
 chmod +x ./init.sh
 ./init.sh
