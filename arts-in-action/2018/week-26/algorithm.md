@@ -36,7 +36,7 @@ LCS 的特征：
 
 假设我们用c[i,j]表示 Xi 和 Yj 的`LCS的长度`（重点）。其中X = {x1 ... xm}，Y ={y1 ... yn}，Xi = {x1 ... xi}，Yj={y1 ... yj}。可得递归公式如下：
 
-
+![](assets/LCS.png)
 
 ### 实现代码
 
@@ -95,7 +95,8 @@ Output: "bb"
 ### 解题思路
  之所以把这题也放到这里，是因为这题的其中一个解法(利用`广义后缀树`)用到了`最长公共子串`的概念。根据[wiki](https://zh.wikipedia.org/wiki/%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E4%B8%B2)：`最长公共子串问题`是寻找两个或多个已知字符串最长的子串。此问题与`最长公共子序列问题`的区别在于子序列不必是连续的，而子串却必须是。  
 
-
+广义后缀树的解法及其他应用后续会详细介绍。这里我主要用 `Manacher's Algorithm` 求解。  
+Manacher's Algorithm Go Version
 ### 实现代码
 
 #### go
@@ -103,6 +104,75 @@ Output: "bb"
 package main
 
 func longestPalindrome(s string) string {
-    
+    ss := []string{}
+    for i := 0; i < len(s); i++ {
+        ss = append(ss, string(s[i]))
+    }
+    t := strings.Join(ss, "#")
+	t = "$#" + t + "#"
+    p, id, mx, resId, resMx := make([]int,len(t)), 0, 0, 0, 0
+    for i := 1; i < len(t); i++ {
+        if mx > i {
+        p[i] = min(p[2 * id - i], mx - i)
+        }else{
+            p[i] = 1
+		} 
+        for{
+            if i+p[i]<len(t) && i-p[i]>=0 && t[i+p[i]]==t[i-p[i]]{
+                p[i]++
+            }else{
+				break
+			} 
+		} 
+        if mx < i + p[i] {
+            mx = i + p[i]
+            id = i
+        }
+        if resMx < p[i] {
+            resMx = p[i]
+            resId = i
+        }
+	}
+	
+    return substr(s, (resId - resMx) / 2, resMx - 1)
+}
+
+func min(first int, args... int) int {
+    for _ , v := range args{
+        if first > v {
+            first = v
+        }
+    }
+    return first
+}
+
+func substr(str string, start int, length int) string {
+	rs := []rune(str)
+	rl := len(rs)
+	end := 0
+ 
+	if start < 0 {
+		start = rl - 1 + start
+	}
+	end = start + length
+ 
+	if start > end {
+		start, end = end, start
+	}
+ 
+	if start < 0 {
+		start = 0
+	}
+	if start > rl {
+		start = rl
+	}
+	if end < 0 {
+		end = 0
+	}
+	if end > rl {
+		end = rl
+	}
+ 
+	return string(rs[start:end])
 }
 ```

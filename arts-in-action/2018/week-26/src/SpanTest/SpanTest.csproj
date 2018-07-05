@@ -8,8 +8,5 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
   </ItemGroup>
-  <ItemGroup>
-      <None Include="example-input.txt" CopyToOutputDirectory="Always" />
-      <!-- CopyToOutputDirectory = { Always, PreserveNewest, Never } -->
-  </ItemGroup>
+
 </Project>

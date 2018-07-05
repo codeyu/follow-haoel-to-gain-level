@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-
+using BenchmarkDotNet.Attributes;
 namespace StringsAreEvil
 {
     /// <summary>
@@ -13,7 +14,8 @@ namespace StringsAreEvil
     ///     Allocated: 7,412,234 kb
     ///     Peak Working Set: 16,524 kb
     /// </summary>
-    public sealed class LineParserV01 : ILineParser
+    [MemoryDiagnoser]
+    public class LineParserV01
     {
         private List<ValueHolder> list = new List<ValueHolder>();
 
@@ -26,19 +28,23 @@ namespace StringsAreEvil
                 //list.Add(valueHolder);
             }
         }
-
-        public void ParseLine(char[] line)
+        [Benchmark]
+        public void ViaStreamReader()
         {
-        }
-
-        public void Dump()
-        {
-            File.WriteAllLines(@"..\..\v01.txt", list.Select(x => x.ToString()));
-        }
-
-        public void ParseLine(StringBuilder line)
-        {
-            
+            using (StreamReader reader = File.OpenText(@"example-input.txt"))
+            {
+                try
+                {
+                    while (reader.EndOfStream == false)
+                    {
+                        ParseLine(reader.ReadLine());
+                    }
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception("File could not be parsed", exception);
+                }
+            }
         }
     }
 }

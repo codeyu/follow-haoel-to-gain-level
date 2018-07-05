@@ -1,4 +1,7 @@
+using System;
+using System.IO;
 using System.Text;
+using BenchmarkDotNet.Attributes;
 
 namespace StringsAreEvil
 {
@@ -11,7 +14,8 @@ namespace StringsAreEvil
     /// Change:-
     ///     Use the orginal parts array
     /// </summary>
-    public sealed class LineParserV02 : ILineParser
+    [MemoryDiagnoser]
+    public class LineParserV02
     {
         public void ParseLine(string line)
         {
@@ -22,17 +26,24 @@ namespace StringsAreEvil
             }
         }
 
-        public void ParseLine(char[] line)
+        [Benchmark]
+        public void ViaStreamReader()
         {
+            using (StreamReader reader = File.OpenText(@"example-input.txt"))
+            {
+                try
+                {
+                    while (reader.EndOfStream == false)
+                    {
+                        ParseLine(reader.ReadLine());
+                    }
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception("File could not be parsed", exception);
+                }
+            }
         }
 
-        public void Dump()
-        {
-        }
-
-        public void ParseLine(StringBuilder line)
-        {
-            
-        }
     }
 }
