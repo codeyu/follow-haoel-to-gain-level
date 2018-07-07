@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/arts-in-action/2018/week-26/src/SpanTest/SpanTest.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
