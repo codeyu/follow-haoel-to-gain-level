@@ -24,15 +24,39 @@ Assume we are dealing with an environment which could only store integers within
 
 ### 解题思路
 
-
+除十取余法
 
 ### 实现代码
 
 #### go
 ```go
 package main
-
+import "math"
 func reverse(x int) int {
-    
+    if x > math.MaxInt32 || x < math.MinInt32 || x == 0{
+        return 0
+    }
+    isNag := false
+    if x < 0{
+        isNag = true   
+    }
+    x = int(math.Abs(float64(x)))
+    lastDigit, reverseNum := 0,0
+    for{
+        if x != 0{
+            lastDigit = x % 10
+            reverseNum = reverseNum * 10 + lastDigit
+            x = x/10
+        }else{
+            break
+        }
+    }
+    if isNag {
+        reverseNum =  reverseNum * -1
+    }
+    if reverseNum > math.MaxInt32 || reverseNum < math.MinInt32{
+        return 0
+    }
+    return reverseNum
 }
 ```
