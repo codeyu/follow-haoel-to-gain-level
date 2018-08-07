@@ -22,7 +22,13 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum
 ```
 ### 解题思路
 
+这题关心的是能不能跳到数组最后一位，首先设置一个变量reach保存能到达的位置，初始值是0。
 
+然后遍历数组，把能跳最远位置的值赋给reach，当reach的值大于等于数组的最后一个索引的位置，则说明能跳到最后一位。
+
+此解放就是所谓 贪心算法。
+
+此题也可使用动态规划算法求解。等我理解清楚后补充。
 
 ### 实现代码
 
