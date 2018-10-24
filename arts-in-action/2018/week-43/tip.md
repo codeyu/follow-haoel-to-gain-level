@@ -125,3 +125,8 @@ echo $PATH
 `export` 命令用于设置或显示环境变量。通过 `export` 添加的环境变量仅在此次登录周期内有效。
 
 比如很多时候我们的开发环境和生产环境，就可以通过设置一个临时环境变量来，然后在程序中根据不同的环境变量来设置不同的参数。
+
+# 设置 Asp.NET Core 环境变量。退出 SHELL 时失效
+`$ export ASPNETCORE_ENVIRONMENT=Development`
+# 查看当前所有环境变量
+`$ export -p`
