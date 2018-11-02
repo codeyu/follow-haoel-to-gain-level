@@ -9,6 +9,7 @@ namespace ArtsBot
         {
             this.BotClient = this.GetClient(authToken);
         }
+
         public SlackSocketClient BotClient { get; }
         public void Dispose()
         {
@@ -37,16 +38,13 @@ namespace ArtsBot
         
         public void PostTextMessage(string channelName, string msg)
         {
-            // given
             var client = BotClient;
             PostMessageResponse actual = null;
 
-            // when
             using (var sync = new InSync(nameof(SlackClient.PostMessage)))
             {
-                client.GetChannelList((clr) => { Console.WriteLine("got channels");  });
+                client.GetChannelList(clr => { Console.WriteLine("got channels");  });
                 var c = client.Channels.Find(x => x.name == channelName);
-                client.PostMessage((mr) => Console.WriteLine($"sent message to {channelName}!"), c.id, msg);
                 client.PostMessage(
                     response =>
                     {
@@ -58,7 +56,7 @@ namespace ArtsBot
                     msg);
             }
 
-            Console.WriteLine(!actual.ok ? "Error while posting message to channel. " : actual.message.text);
+            Console.WriteLine(!actual.ok ? "Error while posting message to channel. " : $"{actual.ts}:{actual.message.text}");
         }
     }
 }
