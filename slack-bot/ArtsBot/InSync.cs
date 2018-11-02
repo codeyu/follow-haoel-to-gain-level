@@ -6,27 +6,27 @@ namespace ArtsBot
 {
     public class InSync : IDisposable
     {
-        private readonly TimeSpan WaitTimeout = TimeSpan.FromSeconds(15);
+        private readonly TimeSpan _waitTimeout = TimeSpan.FromSeconds(30);
 
-        private readonly ManualResetEventSlim waiter;
-        private readonly string message;
+        private readonly ManualResetEventSlim _waiter;
+        private readonly string _message;
 
         public InSync([CallerMemberName] string message = null)
         {
-            this.message = message;
-            this.waiter = new ManualResetEventSlim();
+            this._message = message;
+            this._waiter = new ManualResetEventSlim();
         }
 
         public void Proceed()
         {
-            this.waiter.Set();
+            this._waiter.Set();
         }
 
         public void Dispose()
         {
-            if(this.waiter.Wait(this.WaitTimeout))
+            if(!this._waiter.Wait(this._waitTimeout))
             {
-                Console.WriteLine($"Took too long to do '{this.message}'");
+                Console.WriteLine($"Took too long to do '{this._message}'");
             } 
         }
     }
