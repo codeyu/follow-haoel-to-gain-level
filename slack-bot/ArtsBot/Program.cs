@@ -9,7 +9,6 @@ namespace ArtsBot
         {
             var repPath = Environment.CurrentDirectory;
             Console.WriteLine(repPath);
-            Console.WriteLine(Environment.GetEnvironmentVariable("SLACK_BOT_USER_TOKEN"));//TODO:test,and erase.
             var commitMsg = "";
             using (var repo = new Repository(repPath))
             {
