@@ -1,4 +1,5 @@
 ﻿using System;
+using LibGit2Sharp;
 using SlackAPI;
 namespace ArtsBot
 {
@@ -6,10 +7,30 @@ namespace ArtsBot
     {
         static void Main(string[] args)
         {
-            var client = GetClient("");
-            client.GetChannelList((clr) => { Console.WriteLine("got channels");  });
-            var c = client.Channels.Find(x => x.name.Equals("general"));
-            client.PostMessage((mr) => Console.WriteLine("sent message to general!"), c.id, "Hello general world! \nfrom codeyu-bot");
+            var repPath = Environment.CurrentDirectory;
+            Console.WriteLine(repPath);
+            Console.WriteLine(Environment.GetEnvironmentVariable("SLACK_BOT_USER_TOKEN"));//TODO:test,and erase.
+            var commitMsg = "";
+            using (var repo = new Repository(repPath))
+            {
+                Commit commit = repo.Head.Tip;
+                commitMsg = commit.Message;
+                Console.WriteLine("Message: {0}", commitMsg);
+            }
+
+            var arts = $"ARTS:";
+            if (commitMsg.StartsWith(arts))
+            {
+                var postMsg =
+                    $"https://github.com/codeyu/follow-haoel-to-gain-level/tree/master/arts-in-action/{DateTime.Now.Year}/{commitMsg.Split(":")[1]}";
+                var authToken = Environment.GetEnvironmentVariable("SLACK_BOT_USER_TOKEN");
+                var client = GetClient(authToken);
+                client.GetChannelList((clr) => { Console.WriteLine("got channels");  });
+                var c = client.Channels.Find(x => x.name.Equals("arts"));
+                client.PostMessage((mr) => Console.WriteLine("sent message to arts!"), c.id, $"{postMsg}");
+            }
+            
+            
         }
         private static AccessTokenResponse GetAccessToken(string clientId, string clientSecret, string redirectUri, string authCode)
         {
@@ -53,7 +74,7 @@ namespace ArtsBot
                     syncClientSocket.Proceed();
                 });
             }
-            if(client.IsConnected)
+            if(!client.IsConnected)
             {
                 Console.WriteLine("Doh, still isn't connected");
             }

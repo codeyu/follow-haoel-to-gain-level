@@ -1,0 +1,1 @@
+dotnet publish slack-bot/ArtsBot/ArtsBot.csproj -c Release -o ../bin
