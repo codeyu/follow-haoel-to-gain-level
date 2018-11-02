@@ -5,6 +5,7 @@ image: Visual Studio 2017
 nuget:
   disable_publish_on_pr: true
 build_script:
-- dotnet publish slack-bot/ArtsBot/ArtsBot.csproj -c Release -o ..\bin
+- dotnet build slack-bot/slack-bot.sln -c Release -v q /nologo
+- dotnet publish slack-bot/ArtsBot/ArtsBot.csproj -c Release -o ../bin --no-build
 test_script:
-- dotnet run slack-bot/bin/ArtsBot.dll
+- dotnet slack-bot/bin/ArtsBot.dll
