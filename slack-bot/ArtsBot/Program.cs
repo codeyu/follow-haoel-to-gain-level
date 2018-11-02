@@ -21,13 +21,14 @@ namespace ArtsBot
             var arts = $"ARTS:";
             if (commitMsg.StartsWith(arts))
             {
-                var postMsg =
-                    $"https://github.com/codeyu/follow-haoel-to-gain-level/tree/master/arts-in-action/{DateTime.Now.Year}/{commitMsg.Split(":")[1]}";
+                var channelName = "general";
+                var postMsg = "test";
+                    //$"https://github.com/codeyu/follow-haoel-to-gain-level/tree/master/arts-in-action/{DateTime.Now.Year}/{commitMsg.Split(":")[1]}";
                 var authToken = Environment.GetEnvironmentVariable("SLACK_BOT_USER_TOKEN");
                 var client = GetClient(authToken);
                 client.GetChannelList((clr) => { Console.WriteLine("got channels");  });
-                var c = client.Channels.Find(x => x.name.Equals("arts"));
-                client.PostMessage((mr) => Console.WriteLine("sent message to arts!"), c.id, $"{postMsg}");
+                var c = client.Channels.Find(x => x.name == channelName);
+                client.PostMessage((mr) => Console.WriteLine($"sent message to {channelName}!"), c.id, $"{postMsg}");
             }
             
             
@@ -52,7 +53,7 @@ namespace ArtsBot
             }
             else
             {
-                throw new Exception("Can't get authToken!");
+                throw new Exception("Can't got authToken!");
             }
             
         }
@@ -74,11 +75,9 @@ namespace ArtsBot
                     syncClientSocket.Proceed();
                 });
             }
-            if(!client.IsConnected)
-            {
-                Console.WriteLine("Doh, still isn't connected");
-            }
-            return client;
+
+            if (client.IsConnected) return client;
+            throw new Exception("Doh, still isn't connected");
         }
     }
 }
