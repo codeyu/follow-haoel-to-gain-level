@@ -20,9 +20,9 @@ namespace ArtsBot
             var arts = $"arts:";
             if (!commitMsg.StartsWith(arts)) return;
             var authToken = Environment.GetEnvironmentVariable("SLACK_BOT_USER_TOKEN");
-            var slack = new SlackInstance(authToken);
             var channelName = Environment.GetEnvironmentVariable("CHANNEL_NAME");
             var postMsg = $"https://github.com/codeyu/follow-haoel-to-gain-level/tree/master/arts-in-action/{DateTime.Now.Year}/{commitMsg.Split(":")[1]}";
+            var slack = new SlackInstance(authToken);
             slack.PostTextMessage(channelName, postMsg);
 
         }

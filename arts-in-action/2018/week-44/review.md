@@ -1,7 +1,7 @@
 ## [最优雅的 LRU 算法实现 CodeReview](https://github.com/dotnet/orleans/blob/master/src/Orleans.Core/Utils/LRU.cs)
 
 ### 什么是LRU算法？
-
+**Least recently used (LRU)**（最近最少使用） Discards the least recently used items first. This algorithm requires keeping track of what was used when, which is expensive if one wants to make sure the algorithm always discards the least recently used item. General implementations of this technique require keeping "age bits" for cache-lines and track the "Least Recently Used" cache-line based on age-bits. In such an implementation, every time a cache-line is used, the age of all other cache-lines changes.
 ### CodeReview
 ```cs
 using System;
